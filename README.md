@@ -3,8 +3,8 @@
 
 TA: Jeffrey Dong and Kevin Yeun
 
-Part 1 due Sunday, September 22nd @ 23:59:59 PST
-Part 2 due Sunday, September 29nd @ 23:59:59 PST
+    Part 1 due Sunday, September 22nd @ 23:59:59 PST
+    Part 2 due Sunday, September 29nd @ 23:59:59 PST
 
 ## Announcements
 
@@ -21,9 +21,9 @@ Make sure you are using a machine from 330 Soda or 273 Soda when doing this proj
 
 Copy the proj1 files into your local proj1 directory. We recommend you create a separate repository for this project. If you would like to have the files in a directory called proj1, you can do:
 
-$ mkdir ~/proj1
-$ cd ~/proj1
-$ git pull ~cs61c/proj/01 master
+    $ mkdir ~/proj1
+    $ cd ~/proj1
+    $ git pull ~cs61c/proj/01 master
 
 Note: This is an individual project. Do not show any code to other students, even for debugging.
 
@@ -35,30 +35,25 @@ A reasonable statistical definition is the co-occurrence, which measures how oft
 
     Let Aw be the number of occurrences of w in the corpus.
     Let Cw be the number of occurrences of w in documents that also have the target word.
-
-   Co-occurrence rate :=  if(Cw > 0)   Cw * (log(Cw))^3  / Aw 
+    Co-occurrence rate :=  if(Cw > 0)   Cw * (log(Cw))^3  / Aw 
                           else  0
 
-Note that 1) we will use the natural logarithm when calculating co-occurrence and 2) we will not be calculating co-occurrence.
+Note that 1) we will use the natural logarithm when calculating co-occurrence and 2) we will not be calculating co-occurrence. Here is an example that illustrates this definition. Let the target word be "Dave":
 
-Here is an example that illustrates this definition. Let the target word be "Dave":
-
-Doc_ID#1: Randy, Krste, Dave
-Doc_ID#2: Randy, Dave, Randy
-Doc_ID#3: Randy, Krste, Randy
+    Doc_ID#1: Randy, Krste, Dave
+    Doc_ID#2: Randy, Dave, Randy
+    Doc_ID#3: Randy, Krste, Randy
 
 
-Occurrences: ARandy = 5; AKrste = 2;
-Co-occurrences: CRandy = 3; CKrste = 1;
-Co-occurrence Rate:
-
-    with Randy: CRandy * (log(CRandy))^3 / ARandy = 3/5 * (log(3))3 = 0.7956
-    with Krste: CKrste * (log(CKrste))^3 / AKrste = 1/2 * (log(1))3 = 0
+    Occurrences:           ARandy = 5; AKrste = 2;
+    Co-occurrences:        CRandy = 3; CKrste = 1;
+    Co-occurrence Rate:    with Randy: CRandy * (log(CRandy))^3 / ARandy = 3/5 * (log(3))3 = 0.7956
+                           with Krste: CKrste * (log(CKrste))^3 / AKrste = 1/2 * (log(1))3 = 0
 
 This does nothing to account for the distance between words however. A fairly straightforward generalization of the problem is to, instead of giving each co-occurence a value of 1, give it a value f(d), where d is the minimum distance from the word occurrence to the nearest instance of the target word measured in words. Suppose our target word is cat. The values of d for each word is given below:
 
-Document:     The fat cat did not like the skinny cat.
-Value of d:    2   1       1   2    3   2     1
+    Document:     The fat cat did not like the skinny cat.
+    Value of d:    2   1       1   2    3   2     1
 
 
 If the target word does not exist in the document, the value of d should be Double.POSITIVE_INFINITY.
@@ -67,16 +62,15 @@ The function f() takes d as input and outputs another number. We will define f()
 
     Let Aw be the number of occurrences of w in the corpus.
     Let Sw be the the sum of f(dw) over all occurrences of w in the corpus.
-
-   Co-occurrence rate :=  if(Sw > 0)   Sw * (log(Sw))^3  / Aw 
-                          else  0
+    Co-occurrence rate :=  if(Sw > 0)   Sw * (log(Sw))^3  / Aw 
+                           else  0
 
 Your task is to produce an ordered list of words for the target word sorted by generalized co-occurrence rate, ordered with the biggest co-occurrence rates at the top. The data will be the same data we used in labs 2 and 3. This isn't the most sophisticated text-analysis algorithm out there, but it's enough to illustrate what you can do with MapReduce.
 
 
 ## Part 1 Instructions
 
-In the proj1 directory that you pulled, you will find skeleton code for two MapReduce jobs and a Makefile in a file called Proj1.java and also a file called DoublePair.java, which is a custom Writable class. That directory will also include some test data which will contain some of the results from our reference implementation. You should get the same output as we did, approximate to some floating point roundoff.
+In the proj1 directory that you pulled, you will find skeleton code for two MapReduce jobs and a Makefile in a file called Proj1.java and also a file called *DoublePair.java*, which is a custom Writable class. That directory will also include some test data which will contain some of the results from our reference implementation. You should get the same output as we did, approximate to some floating point roundoff.
 
 For part 1, you will need to :
 
@@ -84,12 +78,11 @@ For part 1, you will need to :
     Implement the MapReduce jobs in Proj1.java to calculate co-occurrence.
 
 ### The DoublePair Class
-
 The DoublePair class is a custom Writable class that holds two double variables. Implement all of the functions with the comment //YOUR CODE HERE. You are not required to use DoublePair in your implementation of Proj1.java, but you are required to implement it, and we will test your DoublePair for correctness. Note that if you choose not to use DoublePair, you still should be using some form of custom keys or values. If you would like to use DoublePair as a Hadoop key, you should implement the WritableComparable interface by defining the methods compareTo() and hashCode() (refer to the spec here).
 
 Feel free to write a main method in DoublePair and define tests there. Whether you have a main method or not won't affect any other parts of your project. For a review on custom Hadoop keys/values, please refer to lab 3. If you have written your own main method and would like to test, you can run DoublePair with the following command:
 
-$ make doublepair
+    $ make doublepair
 
 ### The MapReduce Jobs
 
@@ -101,20 +94,19 @@ You will need to modify some of the type signatures in Proj1.java. Please refer 
 
 Here is a list of potentially helpful info:
 
-    Hadoop guarantees that a reduce tasks receives its keys in sorted order. Note that your co-occurrence values also need to be in sorted order.
+- Hadoop guarantees that a reduce tasks receives its keys in sorted order. Note that your co-occurrence values also need to be in sorted order.
 
-    If you do not override a particular map() and/or reduce() function, the mapper and/or reducer for that stage will be the identity function.
+- If you do not override a particular map() and/or reduce() function, the mapper and/or reducer for that stage will be the identity function.
 
-    You are free to (and should!) use Java's built-in data structures. In particular, it may be wise to use something other than just Lists.
+- You are free to (and should!) use Java's built-in data structures. In particular, it may be wise to use something other than just Lists.
 
-    The String and Math classes in Java may come in handy.
+ - The String and Math classes in Java may come in handy.
 
 ### Running Things Locally
 
 You can launch a job via:
 
-$ hadoop jar proj1.jar Proj1 -conf conf.xml <params> <input> <intermediateDir> <outDir>
-
+    $ hadoop jar proj1.jar Proj1 -conf conf.xml <params> <input> <intermediateDir> <outDir>
 
 You should edit conf.xml to refer to the target word and f for the analysis the three f's we'll be using are numbered 0, 1, and 2). The <input> parameter specifies which input file we are using. The reference solutions were generated from ~cs61c/data/billOfRights.txt.seq.
 
@@ -128,22 +120,14 @@ Make sure you delete the intermediate and final outputs between runs as to not e
 
 You may submit your project by running:
 
-$ submit proj1-1
-
-
-Note: Your code MUST compile or you will NOT receive credit!!!
-
-Please make sure to submit only Proj1.java and DoublePair.java. Before you submit, we strongly suggest you test your code and read the grading section below.
-
-Also, make sure you are outputting exactly what we're asking and nothing else, or the autograder may mark your solution as wrong. If your formatting matches our reference solution, it should be fine.
-
+    $ submit proj1-1
 
 
 ## Part 2 Instructions
 
 We have added a few new files to the project 1 directory. You can get the files by running:
 
-$ git pull ~cs61c/proj/01 master
+    $ git pull ~cs61c/proj/01 master
 
 PLEASE START EARLY. Only a certain number of clusters can be initialized under the cs61c master account. That means that if you procrastinate on the project right now, there's a good chance that you won't be able to start a cluster easily towards the end of the week, when traffic is heaviest.
 
@@ -153,7 +137,7 @@ Before you run your code on the cloud, you will need to verify that your code ru
 
 We will run your code locally on a larger file (~cs61c/data/sample.seq) and verify that both your output is correct and that it runs fast enough. We have provided a script called bench.sh to help you test, which you can run via:
 
-$ ./bench.sh
+    $ ./bench.sh
 
 This script will only report how long your code ran, but it will NOT test your output for correctness. Please make sure that your code finishes within 2 minutes. If your code is slower than that, you should revise your Proj1 design until it passes the benchmark. Note that which word/funcNum you choose will not significantly affect your runtime.
 
@@ -200,33 +184,6 @@ We recommend you save the job status page (eg. as a screenshot) after each run. 
 
 We estimate that each run with the 9 workers on the 2006 dataset should take around 10 minutes.
 Do not leave EC2 machines running when you are not using them. The virtual machines cost the same amount of money when they are active as when they are sitting idle.
-
-### Hadoop Commands Review
-The EC2 usage instructions are almost the same as those in lab 3. If you have not started any EC2 clusters before, please finish lab 3 before you continue. Note: If you are having issues with EC2, please check the EC2 Misc Info page or Piazza. The issue you have has probably already been answered.
-
-To start a cluster with N workers, say:
-
-* hadoop-ec2 launch-cluster --auto-shutdown=170 large <N> *
-* hadoop-ec2 proxy large *
-
-To redisplay the web interface URLs use:
-
-* hadoop-ec2 list large *
-
-You can then start the job on this cluster via:
-
-* hc large jar proj1.jar Proj1 -conf conf.xml -Dcombiner=<true/false> -DrunJob2=<true/false> s3n://cs61cUsenet/<dataset> hdfs:///<intermediateDir> hdfs:///<outDir> * 
-
-After the job is complete you should view your results with the command:
-
-* hc large dfs -cat hdfs:///<OUTPUT_DIR>/part-r-00000 | less *
-
-and copy the top 20 results (co-occurrence and word) into a file in your local directory.
-When you're done with a cluster (after you have retrieved the output files, and copied the logs), be sure to shut down your cluster via:
-
-* hadoop-ec2 terminate-cluster large *
-
-Do not leave instances running when you are not using them. (You can always check whether you have instances running using 'hadoop-ec2 list' or 'ec2-my-instances'.)
 
 ### Written Portion
 For the final submission, answer the following questions in a file named ec2experience.txt:
