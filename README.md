@@ -1,30 +1,4 @@
-# CS61C Fall 2013 Project 1 - Co-occurrence
-
-TA: Jeffrey Dong and Kevin Yeun
-
-    Part 1 due Sunday, September 22nd @ 23:59:59 PST
-    Part 2 due Sunday, September 29nd @ 23:59:59 PST
-
-## Announcements
-
-Updates and clarifications will be posted here.
-
-    9/21/13 - Project 1-2 posted.
-    9/20/13 - Extra OH for part 1 are as follows: Friday, 9/20 7-9 PM @ 330 Soda and Saturday, 9/21 5-7 PM @ 330 Soda.
-    9/18/13 - Updated Makefile to run DoublePair.java.
-    9/15/13 - Project 1-1 posted.
-
-## Setup
-
-Make sure you are using a machine from 330 Soda or 273 Soda when doing this project.
-
-Copy the proj1 files into your local proj1 directory. We recommend you create a separate repository for this project. If you would like to have the files in a directory called proj1, you can do:
-
-    $ mkdir ~/proj1
-    $ cd ~/proj1
-    $ git pull ~cs61c/proj/01 master
-
-Note: This is an individual project. Do not show any code to other students, even for debugging.
+# CS61C Fall 2013 Project 1 - MapReduce on EC2
 
 ## Overview
 
