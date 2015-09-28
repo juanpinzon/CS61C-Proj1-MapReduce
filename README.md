@@ -96,6 +96,7 @@ You may submit your project by running:
     $ submit proj1-1
 
 
+
 ## Part 2 Instructions
 
 We have added a few new files to the project 1 directory. You can get the files by running:
@@ -173,20 +174,4 @@ For the final submission, answer the following questions in a file named ec2expe
 
 6. How much total money did you use to complete this project?
 
-### Submission
-Submit the following files: Proj1.java, capital-0.txt, landmark-1.txt, monument-2.txt, and ec2experience.txt. You can submit by running:
 
-$ submit proj1-2
-
-### Grading
-We're going to grade your code by running it in an automated test harness on sample data. We expect you to give [approximately] the right numeric answers, barring floating point roundoff. So don't modify the three f()'s given. We promise to avoid tests that are overly sensitive to roundoff.
-
-Note again that your code MUST compile for you to receive credit. If you are having trouble implementing a way to find the minimum distance between a word and the target word, you may choose to implement the basic co-occurrence algorithm only for partial credit.
-Part 1 Rubric
-
-10 pts - Implement a working DoublePair. You will only need to implement Writable, not WritableComparable for points.
-15 pts - Correctly calculate basic co-occurrences (ie. using funcNum = 0)
-15 pts - Correctly calculate generalized co-occurrence based on word distances (ie. using funcNum 1 and 2)
-10 pts - Implementing a non-trivial combiner
-
-Total: 50 points
