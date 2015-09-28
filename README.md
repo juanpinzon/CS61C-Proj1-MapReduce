@@ -1,4 +1,3 @@
-
 # CS61C Fall 2013 Project 1 - Co-occurrence
 
 TA: Jeffrey Dong and Kevin Yeun
