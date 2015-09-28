@@ -1,0 +1,40 @@
+* To start a cluster with N workers, say:
+hadoop-ec2 launch-cluster --auto-shutdown=170 large <N>
+hadoop-ec2 proxy large
+
+* To redisplay the web interface URLs use:
+hadoop-ec2 list large
+
+* You can then start the job on this cluster via:
+Start 5 EC2 workers and run:
+    (freedom, 0) on the 2005 dataset with combiner off
+	hc large jar proj1.jar Proj1 -conf conf.xml -Dcombiner=false -DrunJob2=true s3n://cs61cUsenet/2005-tmp hdfs:///dir-int1/ hdfs:///dir-out1/
+
+    (freedom, 0) on the 2005 dataset with combiner on
+	hc large jar proj1.jar Proj1 -conf conf.xml -Dcombiner=true -DrunJob2=true s3n://cs61cUsenet/2005-tmp hdfs:///dir-int2/ hdfs:///dir-out2/
+
+    (capital, 0) on the 2006 dataset with combiner on
+	hc large jar proj1.jar Proj1 -conf conf.xml -Dcombiner=true -DrunJob2=true s3n://cs61cUsenet/s2006 hdfs:///dir-int3/ hdfs:///dir-out3/	
+	hc large dfs -cat hdfs:///dir-out/part-r-00000 | less
+
+
+
+Terminate the 5 EC2 workers, then start 9 EC2 workers and run:
+    (capital, 0) on the 2006 dataset with combiner on
+	hc large jar proj1.jar Proj1 -conf conf.xml -Dcombiner=true -DrunJob2=true s3n://cs61cUsenet/s2006 hdfs:///dir-int1/ hdfs:///dir-out1/
+    (landmark, 1) on the 2006 dataset with combiner on
+	hc large jar proj1.jar Proj1 -conf conf.xml -Dcombiner=true -DrunJob2=true s3n://cs61cUsenet/s2006 hdfs:///dir-int2/ hdfs:///dir-out2/
+    (monument, 2) on the 2006 dataset with combiner on
+	hc large jar proj1.jar Proj1 -conf conf.xml -Dcombiner=true -DrunJob2=true s3n://cs61cUsenet/s2006 hdfs:///dir-int3/ hdfs:///dir-out3/	
+	hc large jar proj1.jar Proj1 -conf conf.xml -Dcombiner=true -DrunJob2=true s3n://cs61cUsenet/s2006 hdfs:///intDir hdfs:///outDir
+
+
+* After the job is complete you should view your results with the command:
+hc large dfs -cat hdfs:///<OUTPUT_DIR>/part-r-00000 | less
+
+* When you're done with a cluster (after you have retrieved the output files, and copied the logs), be sure to shut down your cluster via:
+hadoop-ec2 terminate-cluster large
+
+
+
+They should produce the same top 20 words with their co-occurance rates. However, the Total time taken will surely be different, because the other one has more workers.

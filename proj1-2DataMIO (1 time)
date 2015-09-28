@@ -1,0 +1,76 @@
+Start 5 EC2 workers and run:
+1. (freedom, 0) on the 2005 dataset with combiner off
+a. Total time taken (sum of first and second job)
+11mins, 9sec + 33sec = 11mins, 42sec
+
+b. The number of mappers and reducers used for each job
+job1-Mappers: 294			job1-Reducers: 32
+job2-Mappers: 32			job2-Reducers: 1
+
+c. The size of the input (S3N_BYTES_READ)
+13,892,604,696
+
+
+2. (freedom, 0) on the 2005 dataset with combiner on
+a. Total time taken (sum of first and second job)
+6mins, 5sec + 26sec = 6mins, 31sec
+
+b. The number of mappers and reducers used for each job
+job1-Mappers: 296			job1-Reducers: 32
+job2-Mappers: 32			job2-Reducers: 1
+
+c. The size of the input (S3N_BYTES_READ)
+13,988,208,653
+
+
+3. (capital, 0) on the 2006 dataset with combiner on
+a. Total time taken (sum of first and second job)
+14mins, 48sec + 42sec = 15mins, 30sec
+
+b. The number of mappers and reducers used for each job
+job1-Mappers: 316			job1-Reducers: 32 
+job2-Mappers: 32			job2-Reducers: 1
+
+c. The size of the input (S3N_BYTES_READ)
+19,139,810,139
+
+
+
+Start 9 EC2 workers and run:
+1. (capital, 0) on the 2006 dataset with combiner on
+a. Total time taken (sum of first and second job)
+8mins, 50sec + 27sec = 9mins, 17sec
+
+b. The number of mappers and reducers used for each job
+job1-Mappers: 316			job1-Reducers: 32
+job2-Mappers: 32			job2-Reducers: 1
+
+c. The size of the input (S3N_BYTES_READ)
+19,139,807,082
+
+
+2. (landmark, 1) on the 2006 dataset with combiner on
+a. Total time taken (sum of first and second job)
+8mins, 31sec + 31sec = 9min, 2sec
+
+b. The number of mappers and reducers used for each job
+job1-Mappers: 316			job1-Reducers: 32
+job2-Mappers: 32			job2-Reducers: 1
+
+c. The size of the input (S3N_BYTES_READ)
+19,139,805,989
+
+
+3. (monument, 2) on the 2006 dataset with combiner on
+a. Total time taken (sum of first and second job)
+8mins, 28sec + 31sec = 8mins, 59sec
+
+b. The number of mappers and reducers used for each job
+job1-Mappers: 316			job1-Reducers: 32
+job2-Mappers: 32			job2-Reducers: 1
+
+c. The size of the input (S3N_BYTES_READ)
+19,139,793,542
+
+d. Copy the top 20 results (co-occurrence value and word)
+

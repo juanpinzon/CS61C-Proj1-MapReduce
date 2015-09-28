@@ -1,0 +1,81 @@
+Name: Juan Pinzon
+login: cs61c-vy
+
+1. How long did each of the six runs take? How many mappers and how many reducers did you use?
+	* 5 EC2 workers and run:
+	I. (freedom, 0) on the 2005 dataset with combiner off
+		a. Total time taken (sum of first and second job) = 10mins, 57sec + 34sec = 11mins, 31sec
+		b. The number of mappers and reducers used for each job:	
+			job1-Mappers: 210			job1-Reducers: 32
+			job2-Mappers: 32			job2-Reducers: 1
+
+	II. (freedom, 0) on the 2005 dataset with combiner on
+		a. Total time taken (sum of first and second job) = 5mins, 49sec + 30sec = 6mins, 19sec
+		b. The number of mappers and reducers used for each job:
+			job1-Mappers: 210			job1-Reducers: 32
+			job2-Mappers: 32			job2-Reducers: 1
+
+	III. (capital, 0) on the 2006 dataset with combiner on
+		a. Total time taken (sum of first and second job) = 14mins, 8sec + 32sec = 14mins, 40sec
+		b. The number of mappers and reducers used for each job:
+			job1-Mappers: 316			job1-Reducers: 32 
+			job2-Mappers: 32			job2-Reducers: 1
+
+	* 9 EC2 workers and run:
+	I. (capital, 0) on the 2006 dataset with combiner on
+		a. Total time taken (sum of first and second job) = 8mins, 50sec + 27sec = 9mins, 17sec
+		b. The number of mappers and reducers used for each job:
+			job1-Mappers: 316			job1-Reducers: 32
+			job2-Mappers: 32			job2-Reducers: 1
+
+	II. (landmark, 1) on the 2006 dataset with combiner on
+		a. Total time taken (sum of first and second job) = 8mins, 31sec + 31sec = 9min, 2sec
+		b. The number of mappers and reducers used for each job:
+			job1-Mappers: 316			job1-Reducers: 32
+			job2-Mappers: 32			job2-Reducers: 1
+
+	III. (monument, 2) on the 2006 dataset with combiner on
+		a. Total time taken (sum of first and second job) = 8mins, 28sec + 31sec = 8mins, 59sec
+		b. The number of mappers and reducers used for each job:
+			job1-Mappers: 316			job1-Reducers: 32
+			job2-Mappers: 32			job2-Reducers: 1
+
+
+2. For the two runs with (freedom, 0), how much faster did your code run on the 5 workers with the combiner turned on than with the combiner turned off? Express your answer as a percentage.
+I found that my code run 45% faster on the 5 worker when the combiner was turned on. I calculated it using: percent_speedup = abs(6min,19sec - 11mins,31sec)/11mins,31sec = 0.45
+
+
+3. For the runs on the 2006 dataset, what was the median processing rate per GB (= 2^30 bytes) of input for the tests using 5 workers? Using 9 workers?
+	I.  5 workers = 17.83GB/880sec = 0.020GB/sec
+	II. 9 workers = (17.83GB/557sec = 0.032GB/sec), (17.83GB/542sec = 0.032GB/sec), (17.83GB/539sec = 0.033GB/sec).
+		Then, median = 0.032GB/sec
+		
+4. 	a. What was the percent speedup of running (capital, 0) with 9 workers over 5 workers? 
+		percent speedup = abs(14mins, 40sec - 9mins, 17sec)/14mins, 40sec = 0.37. That means my code run 37% faster on the 9 workers
+
+		
+	b. Assuming your code is fully parallelizable, how much faster would a run with 9 workers be compared to a run with 5 workers? Express both numbers as a percentage.
+		5 workers processing rate is 20.75 MB/sec => 1 worker can process 4.15 MB/sec.
+		Assuming my code is fully parallelizable 9 of these workers can process 9*4.14 MB/sec = 37.26 MB/sec
+		
+		percent speedup = abs(37.26 MB/sec - 20.75 MB/sec)/37.26 MB/sec = 0.44. That means my code run 44% faster on the 9 workers
+	   		
+
+	c. How well, in your opinion, does Hadoop parallelize your code? Justify your answer in 1-2 sentences.
+		Even though Hadoop is not full parallelizable because there is a 7% difference in perforance between the real performance and the ideal (full parallelizable).
+		Hadoop parallelize huge data very well: it uses multiple nodes for parallel processing, dividing the amount of data among the nodes to output results as efficiently as possible.
+		Likewise, processing time improves when you add more nodes, which shows Strong scaling caracteristics.
+
+
+
+5. For a single run on the 2006 dataset, what was the price per GB processed on with 5 workers? With 9 workers? (Recall that an extra-large instance costs $0.58 per hour, rounded up to the nearest hour.)
+	The cost per hour of a single EC2 cluster = 0.58 dollars an hour
+	5 cluster * 1 hour == 5 VM * $0.58 = $2.9
+	9 cluster * 1 hour == 9 VM * $0.58 = $5.2
+
+	I. 	5 workers = $2.9/17.83GB = $0.16/GB
+	II. 9 workers = $5.2/17.83GB = $0.29/GB
+
+
+6. How much total money did you use to complete this project?
+	Total = $2.9 + $5.2 = $8.1
